@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact | Fitjacket{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="contact-page">
+        <h1>Contact Us</h1>
+        <p>We're here to help you level up your fitness journey. Reach out to us anytime!</p>
+        
+        <div class="contact-info">
+            <p><strong>Email:</strong> kittur.krish@gmail.com</p>
+            <p><strong>Instagram:</strong> <a href="" target="_blank">@fitjacket</a></p>
+            <p><strong>Phone:</strong> +1 (650) 218-5481</p>
+            <p><strong>Location:</strong> 123 Peachtree St, Atlanta GA 92938</p>
+        </div>
+    </div>
+{% endblock %}

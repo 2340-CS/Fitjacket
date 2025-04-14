@@ -1,0 +1,102 @@
+#showcase {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 75px);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/home.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    min-height: 400px;
+}
+
+#showcase #website-name {
+    color: white;
+    text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 15px;
+    border: 1px solid white;
+    font-weight: 300;
+    font-size: 1.8rem;
+}
+
+/* About Section */
+#about {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+#about h1 {
+    font-size: 2.2rem;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+/* Why Section */
+#why {
+    padding: 60px 20px;
+    background-color: #ffffff;
+}
+
+#why ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+#why li {
+    background-color: #f0f0f0;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#why li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#why h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+#why p {
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    #showcase #website-name {
+        font-size: 1.4rem;
+        padding: 15px 10px;
+    }
+
+    #about h1,
+    #why h1 {
+        font-size: 1.6rem;
+    }
+
+    #about p,
+    #why p {
+        font-size: 0.95rem;
+    }
+}
