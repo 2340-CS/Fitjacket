@@ -30,7 +30,7 @@ def signup(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return redirect('home.index')
+    return redirect('accounts.signup')
 
 def login(request):
     template_data = {}
