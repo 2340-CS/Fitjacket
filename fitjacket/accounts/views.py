@@ -30,7 +30,7 @@ def signup(request):
 @login_required
 def logout(request):
     auth_logout(request)
-    return redirect('accounts.signup')
+    return redirect('home')
 
 def login(request):
     template_data = {}
@@ -48,7 +48,7 @@ def login(request):
             return render(request, 'accounts/login.html', {'template_data': template_data})
         else:
             auth_login(request, user)
-            return redirect('home.index')
+            return redirect('home')
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'
