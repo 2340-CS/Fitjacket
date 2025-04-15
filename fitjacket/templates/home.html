@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fitjacket App{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+
+{% block content %}
+    <div id="showcase"> 
+        <h1 id="website-name">Fitjacket</h1>
+    </div>
+    <div id="about"> 
+        <h1>Your all-in-one fitness companion.</h1>
+        <p>Fitjacket isn't just another fitness app — it's your ultimate training ground, social hub, and motivation machine.</p>
+    </div>
+    <div id="why">
+        <ul>
+            <li>
+                <h1>Crush your goals</h1>
+                <p>Generate personalized workouts tailored to your level, goals, and schedule. Whether you're lifting, running, or just starting out, we've got the perfect plan for you.</p>
+            </li>
+            <li>
+                <h1>Make Friends Who Sweat Like You Do</h1>
+                <p>Connect with others on the same journey. Chat, share progress, or cheer each other on — because fitness is better together.</p>
+            </li>
+            <li>
+                <h1>Compete & Stay Motivated</h1>
+                <p>Challenge your friends, track your stats, and climb the leaderboard. A little friendly competition goes a long way.</p>
+            </li>
+            <li>
+                <h1>Level Up Your Life</h1>
+                <p>Every rep, every run, every high-five — Fitjacket helps you become your best self, one workout at a time.</p>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
