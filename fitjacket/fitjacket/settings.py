@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'api',
+    'friend',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'fitjacketpawangroup2@gmail.com'
 EMAIL_HOST_PASSWORD = 'umpzehxlqfkxirvs'
+
+BASE_URL = "http://127.0.0.1:8000"

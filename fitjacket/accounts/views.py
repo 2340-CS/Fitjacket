@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
 
 def signup(request):
     template_data = {}
@@ -59,3 +60,38 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('accounts.login')
+
+
+def account_view(request, *args, **kwargs):
+    """
+    Can be 5 views: is_self, is_friend.
+    If not one of those: no_request_sent, they_sent_request, or you_sent_request
+    """
+    context = {}
+    user_id = kwargs.get("user_id")
+    try:
+        account = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        return HttpResponse("That user doesn't exist.")
+    if account:
+        context['id'] = account.is_authenticated
+        context['username'] = account.username
+        context['email'] = account.email
+        context['profile_image'] = account.profile_image.url
+        context['hide_email'] = account.hide_email
+
+        #Define state template variables
+
+        is_self = True
+        is_friend = False
+        user = request.user
+        if user.is_authenticated and user != account:
+            is_self = False
+        elif not user.is_authenticated:
+            is_self = False
+        
+        context['is_self'] = is_self
+        context['is_friend'] = is_friend
+        context['BASE_URL'] = settings.BASE_URL
+
+        return render(request, "accounts/account.html")
