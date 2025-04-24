@@ -135,3 +135,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'fitjacketpawangroup2@gmail.com'
 EMAIL_HOST_PASSWORD = 'umpzehxlqfkxirvs'
+
+#placeholder API key for OpenAI later
+OPENAI_API_KEY = 'placeholder'
