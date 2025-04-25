@@ -137,4 +137,4 @@ EMAIL_HOST_USER = 'fitjacketpawangroup2@gmail.com'
 EMAIL_HOST_PASSWORD = 'umpzehxlqfkxirvs'
 
 #placeholder API key for OpenAI later
-OPENAI_API_KEY = 'placeholder'
+OPENAI_API_KEY = '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'

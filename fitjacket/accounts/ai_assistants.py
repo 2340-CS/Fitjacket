@@ -12,7 +12,7 @@ class WorkoutAIAssistant(AIAssistant):
         "Generate science-based workout routines tailored to the user's specific goals, fitness level, "
         "and available equipment. Provide detailed instructions for each exercise."
     )
-    model = "gpt-4o"
+    model = "gpt-4o-mini"
 
     def __init__(self):
         super().__init__()
@@ -65,7 +65,7 @@ class WorkoutAIAssistant(AIAssistant):
             
             plan_json = response.choices[0].message.content
             plan = json.loads(plan_json)
-            return self._validate_plan(plan)
+            return plan
     
     
     def _build_prompt(self, input_data: WorkoutPlanInput) -> str:
