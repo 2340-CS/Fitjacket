@@ -49,6 +49,8 @@ def login(request):
         else:
             auth_login(request, user)
             return redirect('home')
+        
+
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'accounts/password_reset.html'

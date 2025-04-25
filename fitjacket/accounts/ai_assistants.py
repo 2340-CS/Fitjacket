@@ -1,4 +1,6 @@
 from django_ai_assistant import AIAssistant, method_tool, BaseModel, Field
+from openai import OpenAI
+from django.conf import settings
 from typing import List, Dict
 
 
@@ -11,6 +13,10 @@ class WorkoutAIAssistant(AIAssistant):
         "and available equipment. Provide detailed instructions for each exercise."
     )
     model = "gpt-4o"
+
+    def __init__(self):
+        super().__init__()
+        self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
     class WorkoutPlanInput(BaseModel):
         goals: str = Field(description="Primary fitness goals (weight loss, muscle gain, cardio, etc.)")
@@ -35,11 +41,34 @@ class WorkoutAIAssistant(AIAssistant):
     @method_tool(args_schema=WorkoutPlanInput)
     def generate_workout_plan(self, goals: str, activity_level: str, **kwargs) -> Dict:
         """
-        Generate a comprehensive workout plan based on user parameters.
+        Generate a comprehensive workout plan based on user parameters using OpenAI's API.
         Returns a structured plan with exercise details, progression, and recommendations.
         """
         input_data = self.WorkoutPlanInput(goals=goals, activity_level=activity_level, **kwargs)
 
+        response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": self.instructions
+                    },
+                    {
+                        "role": "user",
+                        "content": self._build_prompt(input_data)
+                    }
+                ],
+                temperature=0.7,
+                response_format={"type": "json_object"},
+                max_tokens=1500
+            )
+            
+            plan_json = response.choices[0].message.content
+            plan = json.loads(plan_json)
+            return self._validate_plan(plan)
+    
+    
+    def _build_prompt(self, input_data: WorkoutPlanInput) -> str:
         prompt = f"""
         Create a {input_data.activity_level} level workout plan for someone who wants to {input_data.goals}.
         
