@@ -2,6 +2,7 @@ from django_ai_assistant import AIAssistant, method_tool, BaseModel, Field
 from openai import OpenAI
 from django.conf import settings
 from typing import List, Dict
+import json
 
 class ExerciseDetail(BaseModel):
         name: str

@@ -3,17 +3,17 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">Your Personalized Workout Plan</h2>
-    
+
     <div class="card mb-4">
         <div class="card-header">
             <h3>Overview</h3>
         </div>
         <div class="card-body">
-            <p><strong>Goal:</strong> {{ plan.meta.goal|title }}</p>
-            <p><strong>Level:</strong> {{ plan.meta.level|title }}</p>
+            <p><strong>Goal:</strong> {{ plan.data.goal|title }}</p>
+            <p><strong>Level:</strong> {{ plan.data.level|title }}</p>
         </div>
     </div>
-    
+
     {% for day in plan.weekly_schedule %}
     <div class="card mb-3">
         <div class="card-header">
@@ -54,7 +54,7 @@
         </div>
     </div>
     {% endfor %}
-    
+
     <div class="card">
         <div class="card-header">
             <h3>Recommendations</h3>
@@ -62,15 +62,15 @@
         <div class="card-body">
             <h5>Nutrition</h5>
             <p>{{ plan.general_recommendations.nutrition }}</p>
-            
+
             <h5>Recovery</h5>
             <p>{{ plan.general_recommendations.recovery }}</p>
-            
+
             <h5>Progression Strategy</h5>
             <p>{{ plan.general_recommendations.progression_strategy }}</p>
         </div>
     </div>
-    
+
     <div class="mt-4">
         <a href="{% url 'workout_plan_form' %}" class="btn btn-primary">Generate Another Plan</a>
     </div>
