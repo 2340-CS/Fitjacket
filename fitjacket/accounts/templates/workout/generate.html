@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Generate Your Workout Plan</h2>
+    <form method="post" action="{% url 'workout_plan_form' %}" id="workout-form">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Your Primary Goal</label>
+                {{ form.goals }}
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Your Current Fitness Level</label>
+                {{ form.activity_level }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Workout Days Per Week</label>
+                {{ form.days_per_week }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generate Plan</button>
+    </form>
+</div>
+{% endblock %}

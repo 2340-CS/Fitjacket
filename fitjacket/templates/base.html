@@ -22,7 +22,7 @@
         <ul> 
             <li><a href="{% url 'home' %}">HOME</a></li>
             <li><a href="{% url 'contact' %}">CONTACT</a></li>
-            <li><a href="">WORKOUTS</a></li>
+            <li><a href="{% url 'workout_plan_form' %}">WORKOUTS</a></li>
             <li><a href="">SOCIAL</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'accounts.logout' %}">LOGOUT  ({{user.username }})</a></li>
