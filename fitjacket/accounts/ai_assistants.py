@@ -23,6 +23,7 @@ class WorkoutAIAssistant(AIAssistant):
         "You are an expert fitness assistant specializing in creating personalized workout plans. "
         "Generate science-based workout routines tailored to the user's specific goals, fitness level, "
         "and available equipment. Provide detailed instructions for each exercise."
+        "Please ensure the output is in JSON format, with clear structure and no additional text."
     )
     model = "gpt-4o-mini"
 
@@ -44,7 +45,7 @@ class WorkoutAIAssistant(AIAssistant):
         Generate a comprehensive workout plan based on user parameters using OpenAI's API.
         Returns a structured plan with exercise details, progression, and recommendations.
         """
-        input_data = self.WorkoutPlanInput(goals=goals, activity_level=activity_level, **kwargs)
+        input_data = self.WorkoutPlanInput(goals=goals or "general fitness", activity_level=activity_level or "beginner", **kwargs)
 
         response = self.client.chat.completions.create(
                 model=self.model,
@@ -78,7 +79,6 @@ class WorkoutAIAssistant(AIAssistant):
                 "goal": "[user goal]",
                 "level": "[fitness level]",
                 "duration_weeks": 4,
-                "equipment_used": ["list of equipment"]
             }},
             "weekly_schedule": [
                 {{
@@ -106,6 +106,7 @@ class WorkoutAIAssistant(AIAssistant):
             }}
         }}
         """
+        return prompt.strip()
         
       
     

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4">Generate Your Workout Plan</h2>
-    <form method="post" action="{% url 'workout_plan_results' %}" class="needs-validation" novalidate>
+    <form method="post" action="{% url 'workout_plan_form' %}" id="workout-form">
         {% csrf_token %}
         
         <div class="row">

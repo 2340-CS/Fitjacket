@@ -80,19 +80,19 @@ def workout_plan_form(request):
                 activity_level=form.cleaned_data['activity_level'],
                 days_per_week=form.cleaned_data['days_per_week'],
             )
-            
-            # Store in session to display on results page
-            request.session['generated_plan'] = plan
-            return redirect('workout_plan_results')
+
+            request.session['workout_plan'] = plan
+            request.session.modified = True
+            return redirect('workout_plan_results') 
     else:
         form = WorkoutPlanForm()
     
     return render(request, 'workout/generate.html', {'form': form})
 
 def workout_plan_results(request):
-    plan = request.session.get('generated_plan', None)
+    plan = request.session.get('workout_plan', None)
     if not plan:
-        return redirect('workout_plan_form')
+        return redirect('workout_plan_form')  
     
     return render(request, 'workout/results.html', {'plan': plan})
 

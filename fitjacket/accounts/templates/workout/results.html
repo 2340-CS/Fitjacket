@@ -6,7 +6,7 @@
     
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Plan Overview</h3>
+            <h3>Overview</h3>
         </div>
         <div class="card-body">
             <p><strong>Goal:</strong> {{ plan.meta.goal|title }}</p>
@@ -72,7 +72,7 @@
     </div>
     
     <div class="mt-4">
-        <a href="{% url 'generate' %}" class="btn btn-primary">Generate Another Plan</a>
+        <a href="{% url 'workout_plan_form' %}" class="btn btn-primary">Generate Another Plan</a>
     </div>
 </div>
 {% endblock %}
