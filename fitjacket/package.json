@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@canvasjs/charts": "^3.12.11"
+  }
+}

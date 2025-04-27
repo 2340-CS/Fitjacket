@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+{% if user.is_authenticated %}
+<div class="p-3">
+    <!-- Welcome Title -->
+    <div style = "font-size:xx-large; padding: 1rem;">Welcome, <div style = "display:inline; color: #2b549b;">{{user.username}}</div>.</div>
+    <div class="container">
+
+    
+
+    <div style = "display: flex; flex-direction:row; justify-content: center">
+        <div style = "display:flex; flex-direction:column; padding-right: 10vw;">
+            <!-- Current Data Card -->
+            <div class="card shadow p-3 mb-4 rounded" style = "width: 40vw;">
+                <!-- Title -->
+                <div>
+                  <div style = "font-size: x-large;">Current Data</div>
+
+                  <div><b>Steps:</b> {{data.steps}}</div>
+                  <div><b>Miles:</b> {{data.miles}}</div>
+                  <div><b>Flights Climbed:</b> {{data.stairs}}</div>
+                  <div><b>Resting Heart Rate:</b> {{data.rHR}}</div>
+
+                  <div>
+                    <canvas id="myChart" style = "display: none"></canvas>
+                  </div>
+                  
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                  
+                  <script>
+                    const ctx = document.getElementById('myChart');
+                  
+                    new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                        labels: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday'],
+                        datasets: [{
+                          label: '# of Steps',
+                          data: [6000, 12000, 11000, 3000, 8000, 12000, 9000],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                  </script>
+
+                  <form method="POST" action="{% url 'workouts.log_fitness' %}">
+                    {% csrf_token %}
+                    <p>
+                      <label for="steps">Steps</label>
+                      <input id="steps" type="number"
+                        name="steps" required
+                        autocomplete="steps"
+                        class="form-control">
+                    </p>
+                    <p>
+                      <label for="miles">Miles</label>
+                      <input id="miles" type="number" step = "0.01"
+                         name="miles" required
+                         autocomplete="miles"
+                         class="form-control">
+                    </p>
+                    <p>
+                      <label for="flights">Flights Climbed</label>
+                      <input id="flights" type="number"
+                        name="flights" required
+                        autocomplete="flights"
+                        class="form-control">
+                    </p>
+                    <p>
+                      <label for="hr">Resting Heart Rate</label>
+                      <input id="hr" type="number"
+                        name="hr" required
+                        autocomplete="hr"
+                        class="form-control">
+                    </p>
+                    <div class="text-center">
+                      <button type="submit" class="btn bg-dark text-white">Log Data</button>
+                    </div>
+                  </form>
+                  <div class = "text-center" style = "padding: 1rem;"><button onClick = "showChart()" class = "btn bg-dark text-white">Progress</button></div>
+                  
+                      <script>
+                        function showChart() {
+                          var element = document.getElementById("myChart");
+                          if (element.style.display === "none") {
+                            element.style.display = "block";
+                          } else {
+                            element.style.display == "none";
+                          }
+                          
+                        }
+
+                      </script>
+
+
+
+                    
+                </div>
+
+                        
+            </div>
+        </div>
+        
+
+        <div style = "display:flex; flex-direction:column; ">
+            <!-- Personalized Plan Card -->
+            <div class="card shadow p-3 mb-4 rounded" style = "width: 35vw;">
+                <div style = "font-size: x-large;">Personalized Plan</div>
+                <div style = "display: flex; flex-direction: row;
+                justify-content: space-around; padding-top: 1.5rem;">
+
+                  <div style = "display:flex; flex-direction:column; justify-content: center;">
+                    <img src = "{% static 'images/hipthrust.png' %}" style = "max-width: 7vw;"/>
+                    <p style = "text-align: center; padding-top: 1rem;">Hip Thrusts</p>
+                  </div>
+                  <div style = "display:flex; flex-direction:column; justify-content: center;">
+                    <img src = "{% static 'images/lunges.png' %}" style = "max-width: 7vw;"/>
+                    <p style = "text-align: center; padding-top: 1rem;">Lunges</p>
+                  </div>
+                  <div style = "display:flex; flex-direction:column; justify-content: center;">
+                    <img src = "{% static 'images/stepdowns.png' %}" style = "max-width: 7vw;"/>
+                    <p style = "text-align: center; padding-top: 1rem;">Step Downs</p>
+                  </div>
+
+
+                </div>
+            </div>
+
+            <!-- Log Workout Card -->
+            <div class="card shadow p-3 mb-4 rounded" style = "width: 35vw;">
+                <div>
+                    <div style = "font-size: x-large;">Log Workout</div>
+
+
+                    <form method="POST" action="{% url 'workouts.log_workout' %}">
+                        {% csrf_token %}
+                        <p>
+                          <label for="workout">Workout Name</label>
+                          <input id="workout" type="text"
+                                 name="workout" required
+                                 autocomplete="workout"
+                                 class="form-control">
+                        </p>
+                        <p>
+                          <label for="intensity">Weight/Duration</label>
+                          <input id="intensity" type="text"
+                                 name="intensity" required
+                                 autocomplete="intensity"
+                                 class="form-control">
+                        </p>
+                        <p>
+                            <label for="reps">Reps (optional)</label>
+                            <input id="reps" type="number"
+                                   name="reps"
+                                   autocomplete="reps"
+                                   class="form-control">
+                          </p>
+                        <div class="text-center">
+                          <button type="submit" class="btn bg-dark text-white">Log Workout</button>
+                        </div>
+                      </form>
+                      <div class="text-center" style = "padding: 1rem;">
+                        <a class = "btn bg-dark text-white" href="{% url 'workouts.workoutHistory' %}">Workout History</a>
+                      </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        
+
+
+    </div>
+  </div>
+</div>
+{% else %}
+
+
+
+{% endif %}
+
+{% endblock content %}

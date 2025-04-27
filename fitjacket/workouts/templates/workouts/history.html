@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<div class="p-3">
+    <a class = "btn bg-dark text-white" href="{% url 'workouts.dashboard' %}">Back to dashboard</a>
+    <!-- Welcome Title -->
+    <div style = "font-size:xx-large; padding: 1rem;"><div style = "display:inline; color: #2b549b;">{{user.username}}</div>'s Workout History</div>
+    <div class="container">
+
+    
+
+    <div style = " justify-content: center">
+        <div style = "display:flex; flex-direction:column; padding-right: 10vw;">
+
+        
+        <div style = "display:flex; flex-direction:column; ">
+            <table class="table table-bordered
+              table-striped text-center mt-3">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Workout Name</th>
+                  <th scope="col">Weight/Duration</th>
+                  <th scope="col">Reps</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for workout in data.workouts %}
+                <tr>
+                  <td>{{workout.date}}</td>
+                  <td>{{workout.workout}}</td>
+                  <td>{{workout.intensity}}</td>
+                  {% if workout.reps != 0 %}
+                    <td>{{workout.reps}}</td>
+                  {% else %}
+                    <td> </td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+            
+
+
+        </div>
+
+    </div>
+    </div>
+
+
+        
+
+
+    </div>
+  </div>
+</div>
+{% else %}
+
+
+
+{% endif %}
+
+{% endblock content %}
