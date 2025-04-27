@@ -87,14 +87,14 @@ def workout_plan_form(request):
     else:
         form = WorkoutPlanForm()
     
-    return render(request, 'workout/generate_plan.html', {'form': form})
+    return render(request, 'workout/generate.html', {'form': form})
 
 def workout_plan_results(request):
     plan = request.session.get('generated_plan', None)
     if not plan:
         return redirect('workout_plan_form')
     
-    return render(request, 'workout/plan_results.html', {'plan': plan})
+    return render(request, 'workout/results.html', {'plan': plan})
 
 @method_decorator(csrf_exempt, name='dispatch')
 class WorkoutPlanAPI(View):
@@ -105,10 +105,7 @@ class WorkoutPlanAPI(View):
         plan = assistant.generate_workout_plan(
             goals=data.get('goals', 'general_fitness'),
             activity_level=data.get('activity_level', 'beginner'),
-            available_equipment=data.get('available_equipment', ['bodyweight']),
             days_per_week=data.get('days_per_week', 3),
-            preferences=data.get('preferences'),
-            duration_weeks=data.get('duration_weeks', 4)
         )
             
         return JsonResponse(plan)

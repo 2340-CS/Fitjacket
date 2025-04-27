@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Your Personalized Workout Plan</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Plan Overview</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Goal:</strong> {{ plan.meta.goal|title }}</p>
+            <p><strong>Level:</strong> {{ plan.meta.level|title }}</p>
+        </div>
+    </div>
+    
+    {% for day in plan.weekly_schedule %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4>Day {{ day.day }}: {{ day.focus }}</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Muscle Group</th>
+                            <th>Sets x Reps</th>
+                            <th>Rest</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for exercise in day.exercises %}
+                        <tr>
+                            <td>
+                                <strong>{{ exercise.name }}</strong>
+                                <div class="text-muted small">{{ exercise.instructions }}</div>
+                            </td>
+                            <td>{{ exercise.muscle_group }}</td>
+                            <td>{{ exercise.sets }} x {{ exercise.reps }}</td>
+                            <td>{{ exercise.rest }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if day.notes %}
+            <div class="alert alert-info mt-3">
+                <strong>Notes:</strong> {{ day.notes }}
+            </div>
+            {% endif %}
+            <p class="text-end"><em>Estimated duration: {{ day.total_duration }}</em></p>
+        </div>
+    </div>
+    {% endfor %}
+    
+    <div class="card">
+        <div class="card-header">
+            <h3>Recommendations</h3>
+        </div>
+        <div class="card-body">
+            <h5>Nutrition</h5>
+            <p>{{ plan.general_recommendations.nutrition }}</p>
+            
+            <h5>Recovery</h5>
+            <p>{{ plan.general_recommendations.recovery }}</p>
+            
+            <h5>Progression Strategy</h5>
+            <p>{{ plan.general_recommendations.progression_strategy }}</p>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'generate' %}" class="btn btn-primary">Generate Another Plan</a>
+    </div>
+</div>
+{% endblock %}
