@@ -5,12 +5,22 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from accounts.models import FitUser, WorkoutGroup
+from accounts.models import FitUser, WorkoutGroup, Challenge
+from django.utils.timezone import now
 
 
 # Create your views here.
-def home_page(request): 
-    return render(request, "home.html")
+def home_page(request):
+    active_challenges = Challenge.objects.filter(start_date__lte=now(), end_date__gte=now())
+    return render(request, 'home.html', {
+        'active_challenges': active_challenges,
+    })
+
+@login_required
+def join_challenge(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    challenge.competitors.add(request.user)
+    return redirect('home') 
 
 def contact_page(request): 
     return render(request, "contact.html")

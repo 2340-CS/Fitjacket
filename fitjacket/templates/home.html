@@ -4,7 +4,7 @@
 {% block title %}Fitjacket | Home{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
@@ -39,4 +39,38 @@
             </li>
         </ul>
     </div>
+
+    <div id="challenges" class="mt-12">
+        <h1>🔥 Current Challenges</h1>
+    
+        {% if active_challenges %}
+            <div class="challenges-list">
+                {% for challenge in active_challenges %}
+                <div class="challenge-card">
+                    <h2>{{ challenge.title }}</h2>
+                    <p>{{ challenge.description }}</p>
+                    <p><strong>Ends:</strong> {{ challenge.end_date }}</p>
+                    {% if user in challenge.competitors.all %}
+                        <button class="joined-button" disabled>Joined ✅</button>
+                    {% else %}
+                        <form method="post" action="{% url 'join_challenge' challenge.id %}">
+                            {% csrf_token %}
+                            <button class="join-button">Join Challenge</button>
+                        </form>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-600 mt-4">No active challenges right now.</p>
+        {% endif %}
+    </div>
+
+    <div class="contact-section text-center my-8">
+        <a href="{% url 'contact' %}" class="contact-button">
+            📩 Contact Us
+        </a>
+    </div>
+      
+    
 {% endblock %}

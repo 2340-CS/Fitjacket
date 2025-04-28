@@ -82,7 +82,6 @@ class Workout(models.Model):
     def __str__(self):
         return f"{self.workout_type} - {self.duration_minutes} min - {self.user.username}"
 
-
 class WorkoutGroup(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -98,14 +97,25 @@ class WorkoutGroup(models.Model):
 class Challenge(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    group = models.ForeignKey(WorkoutGroup, on_delete=models.CASCADE, related_name='challenges')
     start_date = models.DateField()
     end_date = models.DateField()
 
-    winner = models.ForeignKey(FitUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='challenges_won')
+    winner = models.ForeignKey(
+        FitUser, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='challenges_won'
+    )
+
+    competitors = models.ManyToManyField(
+        FitUser,
+        related_name='challenges_joined',
+        blank=True
+    )
 
     def __str__(self):
-        return f"{self.title} ({self.group.name})"
+        return self.title
 
     def is_active(self):
         today = now().date()

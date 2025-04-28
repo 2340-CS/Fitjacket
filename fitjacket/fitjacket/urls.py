@@ -23,6 +23,7 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name='home'), 
+    path('join-challenge/<int:challenge_id>/', views.join_challenge, name='join_challenge'),
     path('contact/', views.contact_page, name='contact'),
     path('social/', views.social_page, name='social'),
     path('accounts/', include('accounts.urls', namespace='accounts')),

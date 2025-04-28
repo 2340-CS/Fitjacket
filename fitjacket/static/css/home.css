@@ -100,3 +100,108 @@
         font-size: 0.95rem;
     }
 }
+
+#challenges {
+  margin-top: 5rem;
+  padding: 2rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+#challenges h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.challenges-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.challenge-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.challenge-card h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.challenge-card p {
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 1rem;
+}
+
+.challenge-card strong {
+  font-weight: 600;
+  color: #374151;
+}
+
+.join-button, .joined-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.join-button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+}
+
+.join-button:hover {
+  background-color: #059669;
+}
+
+.joined-button {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+}
+
+.contact-section {
+  margin-top: 3rem;
+}
+
+.contact-button {
+  display: inline-block;
+  background-color: #6366f1; /* Indigo blue */
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-button:hover {
+  background-color: #4f46e5; /* Darker on hover */
+}

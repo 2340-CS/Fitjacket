@@ -22,7 +22,7 @@
     <div id="navbar">
         <ul> 
             <li><a href="{% url 'home' %}">HOME</a></li>
-            <li><a href="{% url 'contact' %}">CONTACT</a></li>
+            <li><a href="{% url 'workoutlogs:logs' %}">LOGS</a></li>
             <li><a href="{% url 'workouts:workout_plan_form' %}">WORKOUTS</a></li>
             <li><a href="{% url 'social' %}">SOCIAL</a></li>
             {% if user.is_authenticated %}
