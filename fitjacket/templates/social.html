@@ -7,11 +7,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/social.css' %}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+    rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% endblock %}
 
 {% block content %}
+
 <div class="friends-page">
     <div class="container">
         <h1>Friends</h1>
@@ -50,17 +53,19 @@
         <div class="friends-section">
             <h2>Your Friends</h2>
             <ul>
-              {% for friend in friends %}
+                {% for friend in friends %}
                 <li>
-                  <span class="friend-name">{{ friend.username }}</span>
-                  <form method="post" action="">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="remove_friend">
-                    <input type="hidden" name="user_id" value="{{ friend.id }}">
-                    <button>Remove</button>
-                  </form>
+                    <span class="friend-name">{{ friend.username }}</span>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove_friend">
+                        <input type="hidden" name="user_id" value="{{ friend.id }}">
+                        <button>Remove</button>
+                    </form>
                 </li>
-              {% endfor %}
+                {% empty %}
+                <li class="empty-message">You have no friends yet.</li>
+                {% endfor %}
             </ul>
         </div>
 
@@ -91,7 +96,85 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
+
+    <!-- New Separate Section: Workout Groups -->
+    <div class="groups-wrapper">
+        <h2>Workout Groups</h2>
+
+        <div class="your-groups">
+            <h2>Your Groups</h2>
+            {% if my_groups %}
+            <ul class="group-list">
+                {% for group in my_groups %}
+                <li>
+                    <span>{{ group.name }}</span>
+                    <form method="post" action="" style="margin: 0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="leave_group">
+                        <input type="hidden" name="group_id" value="{{ group.id }}">
+                        <button type="submit" class="leave-button">Leave</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="empty-message">You are not part of any groups yet.</p>
+            {% endif %}
+        </div>
+        
+        <!-- Create New Group -->
+        <div class="create-group mb-5">
+            <h3>Create a New Group</h3>
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="text" name="group_name" placeholder="Group Name" required>
+                <textarea name="group_description" placeholder="Group Description" rows="3"></textarea>
+                <button type="submit" name="action" value="create_group">Create Group</button>
+            </form>
+        </div>
+
+        <!-- Search Existing Groups -->
+        <div class="search-groups">
+            <h3>Find Existing Groups</h3>
+        
+            <!-- Search Form -->
+            <form method="get" action="{% url 'social' %}">
+                <input type="text" name="group_query" placeholder="Enter group name..." required>
+                <button type="submit">Search</button>
+            </form>
+        
+            <!-- Display Search Results -->
+            {% if group_search_results %}
+                <ul class="group-list mt-4">
+                    {% for group in group_search_results %}
+                    <li>
+                        <span>{{ group.name }}</span>
+                        {% if group not in my_groups %}
+                        <form method="post" action="" style="margin: 0;">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="join_group">
+                            <input type="hidden" name="group_id" value="{{ group.id }}">
+                            <button type="submit" class="leave-button" style="background-color: #10b981;">Add</button>
+                        </form>
+                        {% else %}
+                            <small style="color: gray;">(Already in group)</small>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% elif group_query %}
+                <p class="empty-message mt-2">No groups found matching "{{ group_query }}"</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="leaderboard-link mt-5" style="text-align: center; margin-top: 3rem;">
+        <a href="{% url 'workoutlogs:leaderboard' %}" class="btn-leaderboard">
+            🏆 View Leaderboard
+        </a>
+    </div>
+    
 </div>
+
 {% endblock %}

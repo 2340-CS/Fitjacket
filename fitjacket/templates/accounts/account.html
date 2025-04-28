@@ -76,7 +76,20 @@
                             <p>No interests listed.</p>
                         {% endif %}
                     {% endif %}
-                </div>                
+                </div>        
+                
+                <div class="profile-field">
+                    <strong>Badges:</strong>
+                    {% if badges %}
+                        <div class="badges-container">
+                            {% for badge in badges %}
+                                <div class="badge-tag">{{ badge }}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No badges yet. Keep working out!</p>
+                    {% endif %}
+                </div>
 
             </div>
         </div>

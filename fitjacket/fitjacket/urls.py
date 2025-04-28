@@ -26,5 +26,6 @@ urlpatterns = [
     path('contact/', views.contact_page, name='contact'),
     path('social/', views.social_page, name='social'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('workouts/', include('workouts.urls', namespace='workouts'))
+    path('workouts/', include('workouts.urls', namespace='workouts')),
+    path('workoutlogs/', include('workoutlogs.urls', namespace='workoutlogs'))
 ]

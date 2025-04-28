@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Workout Logs</h2>
+
+    <!-- Add Workout Manually -->
+    <div class="card mb-4">
+        <div class="card-header">Add Workout</div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="add_manual">
+                
+                <div class="form-group">
+                    <label for="workout_type">Workout Type</label>
+                    <input type="text" name="workout_type" class="form-control" required>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="duration_minutes">Duration (minutes)</label>
+                    <input type="number" name="duration_minutes" class="form-control" required>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="calories_burned">Calories Burned</label>
+                    <input type="number" name="calories_burned" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-dark mt-3 w-100">Add Workout</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Import from Strava -->
+    <div class="card mb-4">
+        <div class="card-header">Import from Strava</div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="import_strava">
+
+                <div class="form-group">
+                    <label for="strava_workout_id">Strava Workout ID</label>
+                    <input type="text" name="strava_workout_id" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3 w-100">Import from Strava</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Workout List -->
+    <div class="card mb-4">
+        <div class="card-header">Your Workouts</div>
+        <div class="card-body">
+            {% if workouts %}
+                <ul class="list-group">
+                    {% for workout in workouts %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ workout.date }} - {{ workout.workout_type }}</span>
+                            <small>{{ workout.duration_minutes }} min | {{ workout.calories_burned }} cal</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No workouts logged yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Graphs Section -->
+    <div class="card my-4">
+        <div class="card-header">Workout Stats</div>
+        <div class="card-body">
+            <canvas id="caloriesChart" class="mb-5"></canvas>
+            <canvas id="durationChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Data Script -->
+<script>
+    const workouts = {{ workouts_json|safe }};
+
+    const dates = workouts.map(w => w.date);
+    const calories = workouts.map(w => w.calories_burned);
+    const durations = workouts.map(w => w.duration_minutes);
+
+    const ctx1 = document.getElementById('caloriesChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Calories Burned',
+                data: calories,
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                borderColor: 'rgba(99, 102, 241, 1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    const ctx2 = document.getElementById('durationChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Workout Duration (minutes)',
+                data: durations,
+                backgroundColor: 'rgba(16, 185, 129, 0.7)'
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

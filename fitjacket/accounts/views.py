@@ -82,6 +82,7 @@ def account_view(request, *args, **kwargs):
         'interests': profile_user.interests,
         'is_self': is_self,
         'hide_email': hide_email,
+        'badges': profile_user.get_badges()
     }
 
     return render(request, 'accounts/account.html', context)

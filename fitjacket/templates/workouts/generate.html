@@ -7,7 +7,42 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4">Generate Your Workout Plan</h2>
+
+    {% if request.user.generated_workout %}
+        <h2 class="mb-4 text-center">Your Current Workout Plan</h2>
+
+        <div class="card mb-5 p-4">
+            <h4>Goal: {{ request.user.generated_workout.data.goal }}</h4>
+            <h5>Level: {{ request.user.generated_workout.data.level }}</h5>
+            <h5>Duration: {{ request.user.generated_workout.data.duration_weeks }} weeks</h5>
+
+            <div class="mt-4">
+                {% for day in request.user.generated_workout.weekly_schedule %}
+                    <div class="mb-3">
+                        <h6>Day {{ day.day_number }} - Focus: {{ day.focus }}</h6>
+                        <ul>
+                            {% for exercise in day.exercises %}
+                                <li><strong>{{ exercise.name }}</strong> ({{ exercise.muscle_group }}) — {{ exercise.sets }} sets of {{ exercise.reps }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-4">
+                <h5>General Recommendations</h5>
+                <ul>
+                    <li><strong>Nutrition:</strong> {{ request.user.generated_workout.general_recommendations.nutrition }}</li>
+                    <li><strong>Recovery:</strong> {{ request.user.generated_workout.general_recommendations.recovery }}</li>
+                    <li><strong>Progression Strategy:</strong> {{ request.user.generated_workout.general_recommendations.progression_strategy }}</li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <h2 class="mb-4 text-center">Generate Your Workout Plan</h2>
+    {% endif %}
+
+    <!-- Workout Generation Form -->
     <form method="post" action="{% url 'workouts:workout_plan_form' %}" id="workout-form">
         {% csrf_token %}
         
@@ -30,7 +65,14 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Generate Plan</button>
+        <button type="submit" class="btn btn-primary">
+            {% if request.user.generated_workout %}
+                Re-generate Plan
+            {% else %}
+                Generate Plan
+            {% endif %}
+        </button>
     </form>
+
 </div>
 {% endblock %}

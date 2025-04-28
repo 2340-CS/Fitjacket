@@ -27,17 +27,14 @@ def workout_plan_form(request):
                 days_per_week=form.cleaned_data['days_per_week'],
             )
 
-            request.session['workout_plan'] = plan
-            return redirect('workouts:workout_plan_results')  # Fixed: namespace:view_name
+            request.user.generated_workout = plan
+            request.user.save()
+
+            return redirect('workouts:workout_plan_form')
+
     else:
         form = WorkoutPlanForm()
-    
-    return render(request, 'workouts/generate.html', {'form': form})
 
-@login_required
-def workout_plan_results(request):
-    plan = request.session.get('workout_plan', None)
-    if not plan:
-        return redirect('workouts:workout_plan_results')  # Fixed: namespace:view_name
-    
-    return render(request, 'workouts/results.html', {'plan': plan})
+    return render(request, 'workouts/generate.html', {
+        'form': form,
+    })
