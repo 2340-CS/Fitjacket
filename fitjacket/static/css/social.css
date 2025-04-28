@@ -1,0 +1,100 @@
+.friends-page {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #f9fafb;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.friends-page .container {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.friends-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.friends-page h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.friends-page h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.friends-page form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.friends-page input[type="text"] {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.friends-page input[type="text"]:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.friends-page button {
+  padding: 0.6rem 1.2rem;
+  background-color: #6366f1;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.friends-page button:hover {
+  background-color: #4f46e5;
+}
+
+.friends-page ul {
+  list-style: none;
+  padding: 0;
+}
+
+.friends-page li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friends-page li:last-child {
+  border-bottom: none;
+}
+
+.friends-page .empty-message {
+  color: #6b7280;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.friends-page .request-buttons {
+  display: flex;
+  gap: 0.5rem;
+}

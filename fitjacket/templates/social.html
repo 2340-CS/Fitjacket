@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fitjacket | Social{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/social.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+
+{% block content %}
+<div class="friends-page">
+    <div class="container">
+      <h1>Friends</h1>
+    
+      <!-- Search for Friends -->
+      <div class="search-section">
+        <h2>Search for Friends</h2>
+        <form method="get" action="">
+          <input type="text" name="query" placeholder="Enter username...">
+          <button type="submit">Search</button>
+        </form>
+    
+        {% if search_results %}
+          <div class="search-results">
+            <h3>Search Results:</h3>
+            <ul>
+              {% for user in search_results %}
+                <li>
+                  <span>{{ user.username }}</span>
+                  <form method="post" action="">
+                    {% csrf_token %}
+                    <button>Add Friend</button>
+                  </form>
+                </li>
+              {% empty %}
+                <li class="empty-message">No users found.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    
+      <!-- Current Friends -->
+      <div class="friends-section">
+        <h2>Your Friends</h2>
+        <ul>
+          {% for friend in friends %}
+            <li>
+              <span>{{ friend.username }}</span>
+              <form method="post" action="">
+                {% csrf_token %}
+                <button>Remove</button>
+              </form>
+            </li>
+          {% empty %}
+            <li class="empty-message">You have no friends yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    
+      <!-- Friend Requests -->
+      <div class="requests-section">
+        <h2>Friend Requests</h2>
+        <ul>
+          {% for request in friend_requests %}
+            <li>
+              <span>{{ request.from_user.username }}</span>
+              <div class="request-buttons">
+                <form method="post" action="">
+                  {% csrf_token %}
+                  <button>Accept</button>
+                </form>
+                <form method="post" action="">
+                  {% csrf_token %}
+                  <button>Decline</button>
+                </form>
+              </div>
+            </li>
+          {% empty %}
+            <li class="empty-message">No friend requests.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

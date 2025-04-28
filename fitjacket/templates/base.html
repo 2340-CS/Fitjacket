@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}Fitjacket App{% endblock %}</title>
+    <title>{% block title %}Fitjacket{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,17 +21,10 @@
 <body>
     <div id="navbar">
         <ul> 
-            {% if user.is_authenticated %}
-            <li>
-                <form class="search-bar justify-content-start" onsubmit="return executeQuery();">
-                    <input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
-                </form>
-            </li>
-            {% endif %}
             <li><a href="{% url 'home' %}">HOME</a></li>
             <li><a href="{% url 'contact' %}">CONTACT</a></li>
             <li><a href="">WORKOUTS</a></li>
-            <li><a href="">SOCIAL</a></li>
+            <li><a href="{% url 'social' %}">SOCIAL</a></li>
             {% if user.is_authenticated %}
             <li><a href="{% url 'accounts:view' user_id=request.user.id %}">PROFILE</a></li>
             <li><a href="{% url 'accounts:logout' %}">LOGOUT  ({{user.username }})</a></li>
