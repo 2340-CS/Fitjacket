@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
     {% block head %}{% endblock %}
 </head>
@@ -20,18 +21,38 @@
 <body>
     <div id="navbar">
         <ul> 
+            {% if user.is_authenticated %}
+            <li>
+                <form class="search-bar justify-content-start" onsubmit="return executeQuery();">
+                    <input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
+                </form>
+            </li>
+            {% endif %}
             <li><a href="{% url 'home' %}">HOME</a></li>
             <li><a href="{% url 'contact' %}">CONTACT</a></li>
             <li><a href="">WORKOUTS</a></li>
             <li><a href="">SOCIAL</a></li>
             {% if user.is_authenticated %}
-            <li><a href="{% url 'accounts.logout' %}">LOGOUT  ({{user.username }})</a></li>
+            <li><a href="{% url 'accounts:view' user_id=request.user.id %}">PROFILE</a></li>
+            <li><a href="{% url 'accounts:logout' %}">LOGOUT  ({{user.username }})</a></li>
             {% else %}
-            <li><a href="{% url 'accounts.signup' %}">SIGN UP</a></li>
-            <li><a href="{% url 'accounts.login' %}">LOGIN</a></li>
+            <li><a href="{% url 'accounts:signup'%}">SIGN UP</a></li>
+            <li><a href="{% url 'accounts:login' %}">LOGIN</a></li>
             {% endif%}
         </ul>
     </div>
     {% block content %} {% endblock %}
 </body>
 </html>
+
+<script type="text/javascript">
+    function executeQuery() {
+        var query = document.getElementById("id_q_large").value;
+        /*if (query == "") {
+            query = document.getElementById("id_q_large").value
+        }
+        */
+        window.location.replace("{% url 'search' %}?q=" + query)
+        return false
+    }
+</script>
