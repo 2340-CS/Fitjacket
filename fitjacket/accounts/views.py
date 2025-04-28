@@ -63,7 +63,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       "if an account exists with the email you entered. You should receive them shortly." \
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('accounts.login')
+    success_url = reverse_lazy('accounts:login')
 
 
 def account_view(request, *args, **kwargs):
@@ -132,7 +132,7 @@ def account_search_view(request, *args, **kwargs):
     if request.method == "GET":
         search_query = request.GET.get("q")
         if len(search_query) > 0:
-            search_results = User.objects.filter(email__icontains=search_query).filter(username__icontains=search_query).distinct()
+            search_results = User.objects.filter(username__icontains=search_query).distinct()
             user = request.user
             accounts = []
             if user.is_authenticated:
