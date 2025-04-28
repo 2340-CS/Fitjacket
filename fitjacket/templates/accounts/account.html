@@ -49,16 +49,34 @@
 
                 <div class="profile-field">
                     <strong>Fitness Interests:</strong>
-                    {% if interests %}
-                        <div class="interests-container">
-                            {% for interest in interests %}
-                                <div class="interest-tag">{{ interest|title }}</div>
-                            {% endfor %}
-                        </div>
+                    {% if is_self %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="interests-container">
+                                {% for value, label in user.FITNESS_INTEREST_CHOICES %}
+                                    <div class="interest-tag">
+                                        <label>
+                                            <input type="checkbox" name="interests" value="{{ value }}"
+                                                {% if value in interests %}checked{% endif %}>
+                                            {{ label }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button type="submit" class="btn btn-dark mt-2">Save Interests</button>
+                        </form>
                     {% else %}
-                        <p>No interests listed.</p>
+                        {% if interests %}
+                            <div class="interests-container">
+                                {% for interest in interests %}
+                                    <div class="interest-tag">{{ interest|title }}</div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No interests listed.</p>
+                        {% endif %}
                     {% endif %}
-                </div>
+                </div>                
 
             </div>
         </div>

@@ -26,5 +26,5 @@ urlpatterns = [
     path('contact/', views.contact_page, name='contact'),
     path('social/', views.social_page, name='social'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('workouts/', include('workouts.urls', namespace='workouts'))
 ]

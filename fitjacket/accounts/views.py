@@ -52,16 +52,6 @@ def login(request):
             auth_login(request, user)
             return redirect('home')
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'accounts/password_reset.html'
-    email_template_name = 'accounts/password_reset_email.html'
-    subject_template_name = 'accounts/password_reset_subject.txt'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
-    success_url = reverse_lazy('accounts.login')
-
 
 def account_view(request, *args, **kwargs):
     user_id = kwargs.get('user_id')
@@ -73,8 +63,12 @@ def account_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.user.id == profile_user.id:
             is_self = True
+            if request.method == 'POST':
+                new_interests = request.POST.getlist('interests')
+                profile_user.interests = new_interests
+                profile_user.save()
+                return redirect('accounts:view', user_id=user_id)
         else:
-            # You are viewing someone else's profile
             if not profile_user.email:
                 hide_email = True
     else:
@@ -91,4 +85,3 @@ def account_view(request, *args, **kwargs):
     }
 
     return render(request, 'accounts/account.html', context)
-    
