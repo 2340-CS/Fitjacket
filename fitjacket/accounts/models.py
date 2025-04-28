@@ -8,6 +8,13 @@ class FitUser(AbstractUser):
     # Friends list: Many-to-many with self
     friends = models.ManyToManyField('self', blank=True, symmetrical=True)
 
+    friend_requests_sent = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name='friend_requests_received',
+        blank=True
+    )
+
     # Fitness-related interests
     FITNESS_INTEREST_CHOICES = [
         ('yoga', 'Yoga'),

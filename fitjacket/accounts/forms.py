@@ -4,15 +4,12 @@ from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.utils.safestring import mark_safe
 from .models import FitUser
+
 class CustomErrorList(ErrorList):
     def __str__(self):
         if not self:
             return ''
         return mark_safe(''.join([f'<div class="alert alert-danger" role="alert">{e}</div>' for e in self]))
-    
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
@@ -32,12 +29,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     interests = forms.MultipleChoiceField(
         required=False,
-        choices=CustomUser.FITNESS_INTEREST_CHOICES,
+        choices=FitUser.FITNESS_INTEREST_CHOICES,
         widget=forms.CheckboxSelectMultiple()
     )
 
     class Meta:
-        model = CustomUser
+        model = FitUser
         fields = ['username', 'email', 'password1', 'password2', 'bio', 'profile_picture', 'interests']
 
     def __init__(self, *args, **kwargs):

@@ -17,19 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include
-
-from accounts.views import (
-    account_search_view,
-)
+from api import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', views.home_page, name='home'), 
-    # path('contact/', views.contact_page, name='contact'),
-    # path('social/', views.social_page, name='social'),
+    path('', views.home_page, name='home'), 
+    path('contact/', views.contact_page, name='contact'),
+    path('social/', views.social_page, name='social'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('friend/', include('friend.urls', namespace='friend')),
-    path('search/', account_search_view, name="search"),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

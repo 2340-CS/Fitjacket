@@ -74,18 +74,27 @@
 .friends-page ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .friends-page li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1rem;
+  background-color: #f3f4f6; /* light background for each friend item */
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.friends-page li:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-2px);
 }
 
 .friends-page li:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .friends-page .empty-message {

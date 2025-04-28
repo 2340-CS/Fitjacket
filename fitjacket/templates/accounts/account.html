@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/accounts/account.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-wrapper">
+
+    <div class="profile-section">
+
+        <div class="profile-card">
+            <div class="profile-image-container">
+                {% if profile_picture %}
+                    <img src="{{ profile_picture.url }}" alt="Profile Picture" class="profile-image">
+                {% else %}
+                    <img src="{% static 'images/BlankProfilePic.webp' %}" alt="Default Profile Picture" class="profile-image">
+                {% endif %}
+            </div>
+
+            <div class="profile-details">
+                <h2>{{ username }}</h2>
+
+                <div class="profile-field">
+                    <strong>Email:</strong>
+                    {% if is_self %}
+                        <span>{{ email }}</span>
+                    {% else %}
+                        {% if hide_email %}
+                            <span>**********</span>
+                        {% else %}
+                            <span>{{ email }}</span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="profile-field">
+                    <strong>Bio:</strong>
+                    <p>
+                        {% if bio %}
+                            {{ bio }}
+                        {% else %}
+                            No bio provided.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="profile-field">
+                    <strong>Fitness Interests:</strong>
+                    {% if interests %}
+                        <div class="interests-container">
+                            {% for interest in interests %}
+                                <div class="interest-tag">{{ interest|title }}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No interests listed.</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

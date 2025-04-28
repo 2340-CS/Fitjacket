@@ -37,15 +37,3 @@
     {% block content %} {% endblock %}
 </body>
 </html>
-
-<script type="text/javascript">
-    function executeQuery() {
-        var query = document.getElementById("id_q_large").value;
-        /*if (query == "") {
-            query = document.getElementById("id_q_large").value
-        }
-        */
-        window.location.replace("{% url 'search' %}?q=" + query)
-        return false
-    }
-</script>

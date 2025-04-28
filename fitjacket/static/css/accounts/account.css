@@ -1,0 +1,90 @@
+.page-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f3f4f6; /* Slightly darker than before */
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); /* Slightly bigger shadow */
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-card {
+  background-color: #ffffff; /* Keep card pure white */
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10); /* Add stronger card shadow */
+  text-align: center;
+}
+
+.profile-image-container {
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.profile-details {
+  margin-top: 1rem;
+}
+
+.profile-details h2 {
+  font-size: 2rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.profile-field {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.profile-field strong {
+  color: #374151;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.profile-field p,
+.profile-field span,
+.profile-field ul {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.profile-field ul {
+  padding-left: 1.5rem;
+}
+
+.profile-field li {
+  list-style-type: disc;
+}
+
+.interests-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.interest-tag {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 20px;
+  display: inline-block;
+  white-space: nowrap;
+}
